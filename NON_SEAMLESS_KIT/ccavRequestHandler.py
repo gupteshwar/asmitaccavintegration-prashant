@@ -10,8 +10,8 @@ app = Flask('ccavRequestHandler')
 '''
 Please put in the 32 bit alphanumeric key and Access Code in quotes provided by CCAvenues.
 '''
-accessCode = ''
-workingKey = ''
+accessCode = 'AVEY92HF96BT05YETB'
+workingKey = '10CE4DF32B0C1C03CF768A3B001F7915'
 
 
 @app.route('/')
