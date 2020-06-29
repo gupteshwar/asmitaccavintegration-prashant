@@ -1,0 +1,13 @@
+ * Serving Flask app "ccavRequestHandler" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+ * Running on http://212.83.155.158:5000/ (Press CTRL+C to quit)
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 159-427-014
+123.201.52.61 - - [29/Jun/2020 20:56:28] "[37mGET / HTTP/1.1[0m" 200 -
+106.220.162.31 - - [29/Jun/2020 20:56:35] "[37mGET / HTTP/1.1[0m" 200 -
+106.220.162.31 - - [29/Jun/2020 20:57:07] "[37mPOST /ccavRequestHandler HTTP/1.1[0m" 200 -
+106.220.162.31 - - [29/Jun/2020 20:58:49] "[37mPOST /ccavResponseHandler HTTP/1.1[0m" 200 -
