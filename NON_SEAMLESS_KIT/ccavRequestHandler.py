@@ -4,7 +4,7 @@ from flask import request, redirect, Flask, render_template
 from ccavutil import encrypt, decrypt
 from ccavResponseHandler import res
 from string import Template
-
+import json
 app = Flask('ccavRequestHandler')
 
 '''
@@ -73,6 +73,82 @@ def login():
 
     fin = Template(html).safe_substitute(encReq=encryption,xscode=accessCode)
     return fin
+
+
+def data_enc(m_data,workingKey):
+    encryption = encrypt(merchant_data,workingKey)
+    return encryption
+
+
+@app.route("/get_req_key", methods=["POST"])
+def encrypt_key():
+    if request.method=='POST':
+        api_data = request.form['data']
+        req_api_data = json.loads(api_data)
+        
+        workingKey = '607B428BC0C0853381C3A2AC287B1F40'
+        p_merchant_id = "263039"
+        p_currency = "INR"
+        p_cancel_url ="https://uatasmita.indictranstech.com/api/method/asmita_bazaar.asmita_bazaar.api.api.res"
+        p_redirect_url = "https://uatasmita.indictranstech.com/api/method/asmita_bazaar.asmita_bazaar.api.api.res"
+        p_order_id = str(req_api_data.get('order_id'))
+        p_amount = str(req_api_data.get('amount'))
+        p_language = str(req_api_data.get('language'))
+
+        merchant_data='merchant_id='+p_merchant_id+'&'+'order_id='+p_order_id + '&' + "currency=" + p_currency + '&' + 'amount=' + p_amount+'&'+'redirect_url='+p_redirect_url+'&'+'cancel_url='+p_cancel_url+'&'+'language='+p_language
+
+        encryption = encrypt(merchant_data,workingKey)
+
+
+        return {'encryption':encryption}
+
+@app.route('/example/')
+def example():
+    return {'hello': 'world'}
+
+
+@app.route("/get_AsmitaReqKey", methods=["POST"])
+def encrypt_key_for_asmita():
+    if request.method=='POST':
+        workingKey = '607B428BC0C0853381C3A2AC287B1F40'
+        p_merchant_id = "263039"
+        p_currency = "INR"
+        p_cancel_url ="https://asmitabazaar.indictranstech.com/api/method/asmita_bazaar.asmita_bazaar.api.api.res"
+        p_redirect_url = "https://asmitabazaar.indictranstech.com/api/method/asmita_bazaar.asmita_bazaar.api.api.res"
+        p_order_id = str(request.form.get('order_id'))
+        p_amount = str(request.form.get('amount'))
+        p_language = str(request.form.get('language'))
+        merchant_data='merchant_id='+p_merchant_id+'&'+'order_id='+p_order_id + '&' + "currency=" + p_currency + '&' + 'amount=' + p_amount+'&'+'redirect_url='+p_redirect_url+'&'+'cancel_url='+p_cancel_url+'&'+'language='+p_language
+        encryption = encrypt(merchant_data,workingKey)
+        
+        return encryption
+
+
+@app.route("/get_uat_AsmitaReqKey", methods=["POST"])
+def uat_encrypt_key_for_asmita():
+    if request.method=='POST':
+        workingKey = '607B428BC0C0853381C3A2AC287B1F40'
+        p_merchant_id = "263039"
+        p_currency = "INR"
+        p_cancel_url ="https://uatasmita.indictranstech.com/api/method/asmita_bazaar.asmita_bazaar.api.api.res"
+        p_redirect_url = "https://uatasmita.indictranstech.com/api/method/asmita_bazaar.asmita_bazaar.api.api.res"
+        p_order_id = str(request.form.get('order_id'))
+        p_amount = str(request.form.get('amount'))
+        p_language = str(request.form.get('language'))
+        merchant_data='merchant_id='+p_merchant_id+'&'+'order_id='+p_order_id + '&' + "currency=" + p_currency + '&' + 'amount=' + p_amount+'&'+'redirect_url='+p_redirect_url+'&'+'cancel_url='+p_cancel_url+'&'+'language='+p_language
+        encryption = encrypt(merchant_data,workingKey)
+        
+        return encryption
+
+
+@app.route("/get_string_encryption", methods=["POST"])
+def string_encryption():
+    if request.method=='POST':
+    	ref_no = str(request.form.get('reference_no'))
+        workingKey = '607B428BC0C0853381C3A2AC287B1F40'
+        merchant_data="|"+ref_no+"|"
+        encryption = encrypt(merchant_data,workingKey)
+        return encryption
 
 # Host Server and Port Number should be configured here.
 

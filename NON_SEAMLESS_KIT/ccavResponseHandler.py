@@ -35,3 +35,9 @@ def res(encResp):
 
 	fin = Template(html).safe_substitute(response=data)
 	return fin
+
+
+def data_enc(m_data,workingKey):
+    encryption = encrypt(m_data,workingKey)
+    return encryption
+
