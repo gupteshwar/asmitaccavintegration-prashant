@@ -150,6 +150,17 @@ def string_encryption():
         encryption = encrypt(merchant_data,workingKey)
         return encryption
 
+@app.route("/get_json_ecryption", methods=["POST"])
+def json_string_encryption():
+    if request.method=='POST':
+        workingKey = '607B428BC0C0853381C3A2AC287B1F40'
+        req_json= request.form.to_dict()
+        app_json = json.dumps(req_json)
+        json_encryption = encrypt(app_json,workingKey)
+        return json_encryption
+       
+
+
 # Host Server and Port Number should be configured here.
 
 if __name__ == '__main__':
